@@ -1,0 +1,374 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/case.schema.json",
+  "title": "IX Sustainment OS Case",
+  "description": "Core sustainment case object for IX Sustainment OS Release 1.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "title",
+    "description",
+    "severity",
+    "priority",
+    "state",
+    "asset_id",
+    "mission_effect",
+    "created_at",
+    "created_by",
+    "primary_blocker",
+    "blocker_list"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "description": "Unique sustainment case identifier.",
+      "pattern": "^CASE-[0-9]{4}-[0-9]{4,}$",
+      "examples": [
+        "CASE-2026-0001"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "description": "Short operator-visible summary of the issue.",
+      "minLength": 3,
+      "maxLength": 160,
+      "examples": [
+        "Hydraulic pressure loss during post-maintenance verification"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the sustainment issue.",
+      "minLength": 10,
+      "maxLength": 4000,
+      "examples": [
+        "Pressure drop observed during verification cycle after routine service."
+      ]
+    },
+    "severity": {
+      "$ref": "#/$defs/severity"
+    },
+    "priority": {
+      "$ref": "#/$defs/priority"
+    },
+    "state": {
+      "$ref": "#/$defs/case_state"
+    },
+    "asset_id": {
+      "type": "string",
+      "description": "Identifier of the linked asset.",
+      "minLength": 3,
+      "maxLength": 100,
+      "examples": [
+        "AST-00091"
+      ]
+    },
+    "mission_effect": {
+      "$ref": "#/$defs/mission_effect"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp when the case was created."
+    },
+    "created_by": {
+      "$ref": "#/$defs/actor_ref"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp of the latest case update."
+    },
+    "updated_by": {
+      "$ref": "#/$defs/actor_ref"
+    },
+    "primary_blocker": {
+      "$ref": "#/$defs/blocker_category"
+    },
+    "blocker_list": {
+      "type": "array",
+      "description": "All active blockers associated with the case.",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/blocker"
+      }
+    },
+    "reported_condition": {
+      "type": "string",
+      "description": "Original reported condition text captured at intake.",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "subsystem_area": {
+      "type": "string",
+      "description": "Subsystem or work-center area relevant to the issue.",
+      "maxLength": 200,
+      "examples": [
+        "HYD-A"
+      ]
+    },
+    "urgency_note": {
+      "type": "string",
+      "description": "Optional operator or planner note about urgency.",
+      "maxLength": 1000
+    },
+    "approval_required": {
+      "type": "boolean",
+      "description": "Whether the case currently has a known approval boundary."
+    },
+    "has_recommendation": {
+      "type": "boolean",
+      "description": "Whether at least one recommendation exists for the case."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Optional categorization tags for search and queue slicing.",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64
+      },
+      "maxItems": 25,
+      "uniqueItems": true
+    },
+    "attachments": {
+      "type": "array",
+      "description": "References to supporting attachments, not attachment file contents.",
+      "items": {
+        "$ref": "#/$defs/attachment_ref"
+      },
+      "maxItems": 50
+    },
+    "fault_events": {
+      "type": "array",
+      "description": "Optional fault events linked to the case.",
+      "items": {
+        "$ref": "#/$defs/fault_event"
+      }
+    },
+    "closed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp when the case was closed."
+    },
+    "closed_by": {
+      "$ref": "#/$defs/actor_ref"
+    }
+  },
+  "$defs": {
+    "case_state": {
+      "type": "string",
+      "description": "Authoritative workflow state for the sustainment case.",
+      "enum": [
+        "new",
+        "triage",
+        "awaiting-data",
+        "awaiting-parts",
+        "awaiting-approval",
+        "actionable",
+        "deferred",
+        "resolved",
+        "closed"
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "description": "Operational severity of the issue.",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "description": "Queue priority assigned to the issue.",
+      "enum": [
+        "routine",
+        "elevated",
+        "urgent",
+        "critical"
+      ]
+    },
+    "mission_effect": {
+      "type": "string",
+      "description": "Estimated mission effect of the issue.",
+      "enum": [
+        "none",
+        "minor",
+        "moderate",
+        "major",
+        "critical"
+      ]
+    },
+    "blocker_category": {
+      "type": "string",
+      "description": "Operational blocker category.",
+      "enum": [
+        "data",
+        "procedure",
+        "entitlement",
+        "parts",
+        "tooling",
+        "approval",
+        "capacity",
+        "policy"
+      ]
+    },
+    "actor_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor_id",
+        "display_name",
+        "role"
+      ],
+      "properties": {
+        "actor_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "examples": [
+            "usr-0142"
+          ]
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "examples": [
+            "Jordan Hale"
+          ]
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "examples": [
+            "production-controller"
+          ]
+        }
+      }
+    },
+    "blocker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "summary",
+        "is_primary"
+      ],
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/blocker_category"
+        },
+        "summary": {
+          "type": "string",
+          "description": "Short operational explanation of the blocker.",
+          "minLength": 3,
+          "maxLength": 500,
+          "examples": [
+            "Required part unavailable with no confirmed substitute."
+          ]
+        },
+        "is_primary": {
+          "type": "boolean",
+          "description": "Whether this blocker is the primary current blocker."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_by": {
+          "$ref": "#/$defs/actor_ref"
+        }
+      }
+    },
+    "attachment_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attachment_id",
+        "filename"
+      ],
+      "properties": {
+        "attachment_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "filename": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "media_type": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "uploaded_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "uploaded_by": {
+          "$ref": "#/$defs/actor_ref"
+        }
+      }
+    },
+    "fault_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fault_event_id",
+        "case_id",
+        "type",
+        "source",
+        "observed_at",
+        "notes"
+      ],
+      "properties": {
+        "fault_event_id": {
+          "type": "string",
+          "pattern": "^FE-[0-9]{4}-[0-9]{4,}$",
+          "examples": [
+            "FE-2026-0030"
+          ]
+        },
+        "case_id": {
+          "type": "string",
+          "pattern": "^CASE-[0-9]{4}-[0-9]{4,}$"
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "examples": [
+            "pressure-loss"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "examples": [
+            "maintainer-entry"
+          ]
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "examples": [
+            "Pressure dropped after second verification cycle."
+          ]
+        }
+      }
+    }
+  }
+}
