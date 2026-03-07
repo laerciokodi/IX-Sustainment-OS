@@ -1,0 +1,438 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/evidence-event.schema.json",
+  "title": "IX Sustainment OS Evidence Event",
+  "description": "Durable evidence and audit event object for IX Sustainment OS Release 1. Evidence events preserve attributable workflow history, policy context, approvals, overrides, and state transitions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "object_type",
+    "object_id",
+    "action",
+    "actor",
+    "occurred_at",
+    "summary"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "description": "Unique evidence event identifier.",
+      "pattern": "^EVT-[0-9]{4}-[0-9]{4,}$",
+      "examples": [
+        "EVT-2026-90210"
+      ]
+    },
+    "object_type": {
+      "type": "string",
+      "description": "Type of primary object the event concerns.",
+      "minLength": 1,
+      "maxLength": 100,
+      "examples": [
+        "case"
+      ]
+    },
+    "object_id": {
+      "type": "string",
+      "description": "Identifier of the primary object the event concerns.",
+      "minLength": 1,
+      "maxLength": 120,
+      "examples": [
+        "CASE-2026-0001"
+      ]
+    },
+    "action": {
+      "$ref": "#/$defs/action_name"
+    },
+    "actor": {
+      "$ref": "#/$defs/actor_ref"
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp when the event occurred."
+    },
+    "summary": {
+      "type": "string",
+      "description": "Short operator-visible summary of what happened.",
+      "minLength": 3,
+      "maxLength": 1000,
+      "examples": [
+        "Case moved from triage to awaiting-parts."
+      ]
+    },
+    "policy_context": {
+      "type": "string",
+      "description": "Optional policy context relevant to the event.",
+      "maxLength": 2000,
+      "examples": [
+        "role=production-controller; approval_required=false"
+      ]
+    },
+    "before_state": {
+      "type": "string",
+      "description": "Optional workflow state before the event.",
+      "enum": [
+        "new",
+        "triage",
+        "awaiting-data",
+        "awaiting-parts",
+        "awaiting-approval",
+        "actionable",
+        "deferred",
+        "resolved",
+        "closed"
+      ]
+    },
+    "after_state": {
+      "type": "string",
+      "description": "Optional workflow state after the event.",
+      "enum": [
+        "new",
+        "triage",
+        "awaiting-data",
+        "awaiting-parts",
+        "awaiting-approval",
+        "actionable",
+        "deferred",
+        "resolved",
+        "closed"
+      ]
+    },
+    "related_objects": {
+      "type": "array",
+      "description": "Optional related objects materially associated with the event.",
+      "items": {
+        "$ref": "#/$defs/object_ref"
+      },
+      "maxItems": 100
+    },
+    "recommendation_context": {
+      "$ref": "#/$defs/recommendation_context"
+    },
+    "approval_context": {
+      "$ref": "#/$defs/approval_context"
+    },
+    "entitlement_context": {
+      "$ref": "#/$defs/entitlement_context"
+    },
+    "changes": {
+      "type": "array",
+      "description": "Structured field-level summary of what changed.",
+      "items": {
+        "$ref": "#/$defs/change_item"
+      },
+      "maxItems": 100
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional machine-readable metadata associated with the event.",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "number",
+          "integer",
+          "boolean",
+          "null"
+        ]
+      },
+      "maxProperties": 100
+    },
+    "integrity": {
+      "$ref": "#/$defs/integrity_context"
+    }
+  },
+  "$defs": {
+    "action_name": {
+      "type": "string",
+      "description": "Normalized action emitted by the IX Sustainment OS workflow, policy, approval, recommendation, or evidence layers.",
+      "enum": [
+        "case.created",
+        "case.state_changed",
+        "case.actionable_marked",
+        "case.resolved",
+        "case.closed",
+        "case.reopened",
+        "severity.updated",
+        "priority.updated",
+        "blocker.tagged",
+        "blocker.cleared",
+        "asset.linked",
+        "attachment.added",
+        "source.recorded",
+        "procedure.search_performed",
+        "procedure.linked",
+        "procedure.access_denied",
+        "procedure.applicability_confirmed",
+        "entitlement.check_performed",
+        "part_constraint.added",
+        "part_constraint.updated",
+        "supply_status.checked",
+        "readiness_impact.assessed",
+        "recommendation.generated",
+        "recommendation.viewed",
+        "recommendation.reviewed",
+        "recommendation.accepted",
+        "recommendation.rejected",
+        "recommendation.overridden",
+        "approval.requested",
+        "approval.viewed",
+        "approval.approved",
+        "approval.rejected",
+        "approval.returned_for_info",
+        "approval.boundary_satisfied"
+      ]
+    },
+    "actor_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor_id",
+        "display_name",
+        "role"
+      ],
+      "properties": {
+        "actor_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "examples": [
+            "usr-0142"
+          ]
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "examples": [
+            "Jordan Hale"
+          ]
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "examples": [
+            "production-controller"
+          ]
+        }
+      }
+    },
+    "object_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type",
+        "object_id"
+      ],
+      "properties": {
+        "object_type": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "examples": [
+            "recommendation"
+          ]
+        },
+        "object_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "examples": [
+            "REC-2026-0017"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "maxLength": 500
+        }
+      }
+    },
+    "recommendation_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "recommendation_id": {
+          "type": "string",
+          "pattern": "^REC-[0-9]{4}-[0-9]{4,}$"
+        },
+        "recommendation_type": {
+          "type": "string",
+          "enum": [
+            "likely-fault-family",
+            "next-evidence",
+            "likely-blocker-cause",
+            "procedure-suggestion",
+            "queue-priority-hint",
+            "similar-case-retrieval"
+          ]
+        },
+        "status_before": {
+          "type": "string",
+          "enum": [
+            "pending-review",
+            "accepted",
+            "rejected",
+            "overridden",
+            "deferred"
+          ]
+        },
+        "status_after": {
+          "type": "string",
+          "enum": [
+            "pending-review",
+            "accepted",
+            "rejected",
+            "overridden",
+            "deferred"
+          ]
+        },
+        "confidence_label": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "uncertain"
+          ]
+        },
+        "approval_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "approval_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "approval_id": {
+          "type": "string",
+          "pattern": "^APR-[0-9]{4}-[0-9]{4,}$"
+        },
+        "requested_action": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "disposition_before": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "approved",
+            "rejected",
+            "returned-for-info"
+          ]
+        },
+        "disposition_after": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "approved",
+            "rejected",
+            "returned-for-info"
+          ]
+        },
+        "approver_role": {
+          "type": "string",
+          "maxLength": 100
+        }
+      }
+    },
+    "entitlement_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "access_state": {
+          "type": "string",
+          "enum": [
+            "accessible",
+            "restricted",
+            "unknown",
+            "outdated",
+            "conflict"
+          ]
+        },
+        "resource_type": {
+          "type": "string",
+          "maxLength": 100,
+          "examples": [
+            "procedure"
+          ]
+        },
+        "resource_id": {
+          "type": "string",
+          "maxLength": 120,
+          "examples": [
+            "PROC-1148"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      }
+    },
+    "change_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field"
+      ],
+      "properties": {
+        "field": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "examples": [
+            "state"
+          ]
+        },
+        "before": {
+          "type": [
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
+        },
+        "after": {
+          "type": [
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "maxLength": 500
+        }
+      }
+    },
+    "integrity_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "trace_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "correlation_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "source_system": {
+          "type": "string",
+          "maxLength": 120,
+          "examples": [
+            "ix-sustainment-os"
+          ]
+        },
+        "ingested": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
