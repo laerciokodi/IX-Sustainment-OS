@@ -60,11 +60,11 @@ const (
 type RecommendationType string
 
 const (
-	RecommendationTypeLikelyFaultFamily   RecommendationType = "likely-fault-family"
-	RecommendationTypeNextEvidence        RecommendationType = "next-evidence"
-	RecommendationTypeLikelyBlockerCause  RecommendationType = "likely-blocker-cause"
-	RecommendationTypeProcedureSuggestion RecommendationType = "procedure-suggestion"
-	RecommendationTypeQueuePriorityHint   RecommendationType = "queue-priority-hint"
+	RecommendationTypeLikelyFaultFamily    RecommendationType = "likely-fault-family"
+	RecommendationTypeNextEvidence         RecommendationType = "next-evidence"
+	RecommendationTypeLikelyBlockerCause   RecommendationType = "likely-blocker-cause"
+	RecommendationTypeProcedureSuggestion  RecommendationType = "procedure-suggestion"
+	RecommendationTypeQueuePriorityHint    RecommendationType = "queue-priority-hint"
 	RecommendationTypeSimilarCaseRetrieval RecommendationType = "similar-case-retrieval"
 )
 
@@ -157,74 +157,74 @@ type FaultEvent struct {
 }
 
 type Case struct {
-	CaseID            string           `json:"case_id"`
-	Title             string           `json:"title"`
-	Description       string           `json:"description"`
-	Severity          Severity         `json:"severity"`
-	Priority          Priority         `json:"priority"`
-	State             CaseState        `json:"state"`
-	AssetID           string           `json:"asset_id"`
-	MissionEffect     MissionEffect    `json:"mission_effect"`
-	CreatedAt         time.Time        `json:"created_at"`
-	CreatedBy         ActorRef         `json:"created_by"`
-	UpdatedAt         *time.Time       `json:"updated_at,omitempty"`
-	UpdatedBy         *ActorRef        `json:"updated_by,omitempty"`
-	PrimaryBlocker    BlockerCategory  `json:"primary_blocker"`
-	BlockerList       []Blocker        `json:"blocker_list"`
-	ReportedCondition string           `json:"reported_condition,omitempty"`
-	SubsystemArea     string           `json:"subsystem_area,omitempty"`
-	UrgencyNote       string           `json:"urgency_note,omitempty"`
-	ApprovalRequired  bool             `json:"approval_required,omitempty"`
-	HasRecommendation bool             `json:"has_recommendation,omitempty"`
-	Tags              []string         `json:"tags,omitempty"`
-	Attachments       []AttachmentRef  `json:"attachments,omitempty"`
-	FaultEvents       []FaultEvent     `json:"fault_events,omitempty"`
-	ClosedAt          *time.Time       `json:"closed_at,omitempty"`
-	ClosedBy          *ActorRef        `json:"closed_by,omitempty"`
+	CaseID             string          `json:"case_id"`
+	Title              string          `json:"title"`
+	Description        string          `json:"description"`
+	Severity           Severity        `json:"severity"`
+	Priority           Priority        `json:"priority"`
+	State              CaseState       `json:"state"`
+	AssetID            string          `json:"asset_id"`
+	MissionEffect      MissionEffect   `json:"mission_effect"`
+	CreatedAt          time.Time       `json:"created_at"`
+	CreatedBy          ActorRef        `json:"created_by"`
+	UpdatedAt          *time.Time      `json:"updated_at,omitempty"`
+	UpdatedBy          *ActorRef       `json:"updated_by,omitempty"`
+	PrimaryBlocker     BlockerCategory `json:"primary_blocker"`
+	BlockerList        []Blocker       `json:"blocker_list"`
+	ReportedCondition  string          `json:"reported_condition,omitempty"`
+	SubsystemArea      string          `json:"subsystem_area,omitempty"`
+	UrgencyNote        string          `json:"urgency_note,omitempty"`
+	ApprovalRequired   bool            `json:"approval_required,omitempty"`
+	HasRecommendation  bool            `json:"has_recommendation,omitempty"`
+	Tags               []string        `json:"tags,omitempty"`
+	Attachments        []AttachmentRef `json:"attachments,omitempty"`
+	FaultEvents        []FaultEvent    `json:"fault_events,omitempty"`
+	ClosedAt           *time.Time      `json:"closed_at,omitempty"`
+	ClosedBy           *ActorRef       `json:"closed_by,omitempty"`
 }
 
 type ProcedureRef struct {
-	ProcedureRefID string      `json:"procedure_ref_id"`
-	Title          string      `json:"title"`
-	ReferenceCode  string      `json:"reference_code"`
-	Revision       string      `json:"revision"`
-	Applicability  string      `json:"applicability"`
-	AccessState    AccessState `json:"access_state"`
-	RestrictedReason string    `json:"restricted_reason,omitempty"`
+	ProcedureRefID   string      `json:"procedure_ref_id"`
+	Title            string      `json:"title"`
+	ReferenceCode    string      `json:"reference_code"`
+	Revision         string      `json:"revision"`
+	Applicability    string      `json:"applicability"`
+	AccessState      AccessState `json:"access_state"`
+	RestrictedReason string      `json:"restricted_reason,omitempty"`
 }
 
 type PartConstraint struct {
-	PartConstraintID string            `json:"part_constraint_id"`
-	CaseID           string            `json:"case_id"`
-	PartNumber       string            `json:"part_number"`
-	Nomenclature     string            `json:"nomenclature"`
+	PartConstraintID  string            `json:"part_constraint_id"`
+	CaseID            string            `json:"case_id"`
+	PartNumber        string            `json:"part_number"`
+	Nomenclature      string            `json:"nomenclature"`
 	AvailabilityState AvailabilityState `json:"availability_state"`
-	ETAText          string            `json:"eta_text,omitempty"`
-	ReadinessImpact  string            `json:"readiness_impact"`
-	AlternatePath    string            `json:"alternate_path,omitempty"`
+	ETAText           string            `json:"eta_text,omitempty"`
+	ReadinessImpact   string            `json:"readiness_impact"`
+	AlternatePath     string            `json:"alternate_path,omitempty"`
 }
 
 type Recommendation struct {
-	RecommendationID    string               `json:"recommendation_id"`
-	CaseID              string               `json:"case_id"`
-	Type                RecommendationType   `json:"type"`
-	Summary             string               `json:"summary"`
-	Rationale           string               `json:"rationale"`
-	ConfidenceLabel     ConfidenceLabel      `json:"confidence_label"`
-	ApprovalRequired    bool                 `json:"approval_required"`
-	Status              RecommendationStatus `json:"status"`
-	GeneratedAt         time.Time            `json:"generated_at"`
-	GeneratedBy         string               `json:"generated_by,omitempty"`
-	InputsUsed          []string             `json:"inputs_used,omitempty"`
-	PolicyContext       string               `json:"policy_context,omitempty"`
-	ReviewedAt          *time.Time           `json:"reviewed_at,omitempty"`
-	ReviewedBy          *ActorRef            `json:"reviewed_by,omitempty"`
-	ReviewDispositionReason string           `json:"review_disposition_reason,omitempty"`
-	OverrideSummary     string               `json:"override_summary,omitempty"`
-	ApprovalID          string               `json:"approval_id,omitempty"`
-	ExpiresAt           *time.Time           `json:"expires_at,omitempty"`
-	Stale               bool                 `json:"stale,omitempty"`
-	Tags                []string             `json:"tags,omitempty"`
+	RecommendationID       string               `json:"recommendation_id"`
+	CaseID                 string               `json:"case_id"`
+	Type                   RecommendationType   `json:"type"`
+	Summary                string               `json:"summary"`
+	Rationale              string               `json:"rationale"`
+	ConfidenceLabel        ConfidenceLabel      `json:"confidence_label"`
+	ApprovalRequired       bool                 `json:"approval_required"`
+	Status                 RecommendationStatus `json:"status"`
+	GeneratedAt            time.Time            `json:"generated_at"`
+	GeneratedBy            string               `json:"generated_by,omitempty"`
+	InputsUsed             []string             `json:"inputs_used,omitempty"`
+	PolicyContext          string               `json:"policy_context,omitempty"`
+	ReviewedAt             *time.Time           `json:"reviewed_at,omitempty"`
+	ReviewedBy             *ActorRef            `json:"reviewed_by,omitempty"`
+	ReviewDispositionReason string              `json:"review_disposition_reason,omitempty"`
+	OverrideSummary        string               `json:"override_summary,omitempty"`
+	ApprovalID             string               `json:"approval_id,omitempty"`
+	ExpiresAt              *time.Time           `json:"expires_at,omitempty"`
+	Stale                  bool                 `json:"stale,omitempty"`
+	Tags                   []string             `json:"tags,omitempty"`
 }
 
 type Approval struct {
@@ -261,20 +261,20 @@ type ChangeItem struct {
 }
 
 type RecommendationContext struct {
-	RecommendationID string               `json:"recommendation_id,omitempty"`
-	RecommendationType RecommendationType `json:"recommendation_type,omitempty"`
-	StatusBefore     RecommendationStatus `json:"status_before,omitempty"`
-	StatusAfter      RecommendationStatus `json:"status_after,omitempty"`
-	ConfidenceLabel  ConfidenceLabel      `json:"confidence_label,omitempty"`
-	ApprovalRequired bool                 `json:"approval_required,omitempty"`
+	RecommendationID   string               `json:"recommendation_id,omitempty"`
+	RecommendationType RecommendationType   `json:"recommendation_type,omitempty"`
+	StatusBefore       RecommendationStatus `json:"status_before,omitempty"`
+	StatusAfter        RecommendationStatus `json:"status_after,omitempty"`
+	ConfidenceLabel    ConfidenceLabel      `json:"confidence_label,omitempty"`
+	ApprovalRequired   bool                 `json:"approval_required,omitempty"`
 }
 
 type ApprovalContext struct {
-	ApprovalID         string              `json:"approval_id,omitempty"`
-	RequestedAction    string              `json:"requested_action,omitempty"`
-	DispositionBefore  ApprovalDisposition `json:"disposition_before,omitempty"`
-	DispositionAfter   ApprovalDisposition `json:"disposition_after,omitempty"`
-	ApproverRole       string              `json:"approver_role,omitempty"`
+	ApprovalID        string              `json:"approval_id,omitempty"`
+	RequestedAction   string              `json:"requested_action,omitempty"`
+	DispositionBefore ApprovalDisposition `json:"disposition_before,omitempty"`
+	DispositionAfter  ApprovalDisposition `json:"disposition_after,omitempty"`
+	ApproverRole      string              `json:"approver_role,omitempty"`
 }
 
 type EntitlementContext struct {
