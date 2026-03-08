@@ -529,21 +529,21 @@ func seedDemoStore() *demoStore {
 	}
 
 	assetA := domain.Asset{
-		AssetID:          "AST-00091",
-		AssetType:        "support-platform",
-		TailOrSerial:     "SN-22914",
-		UnitOrLocation:   "Depot-West",
-		Status:           "degraded",
-		MissionRelevance: domain.MissionEffectMajor,
+		AssetID:           "AST-00091",
+		AssetType:         "support-platform",
+		TailOrSerial:      "SN-22914",
+		UnitOrLocation:    "Depot-West",
+		Status:            "degraded",
+		MissionRelevance:  domain.MissionEffectMajor,
 	}
 
 	assetB := domain.Asset{
-		AssetID:          "AST-00107",
-		AssetType:        "support-platform",
-		TailOrSerial:     "SN-44102",
-		UnitOrLocation:   "Depot-West",
-		Status:           "inspection-hold",
-		MissionRelevance: domain.MissionEffectModerate,
+		AssetID:           "AST-00107",
+		AssetType:         "support-platform",
+		TailOrSerial:      "SN-44102",
+		UnitOrLocation:    "Depot-West",
+		Status:            "inspection-hold",
+		MissionRelevance:  domain.MissionEffectModerate,
 	}
 
 	caseA := domain.Case{
@@ -637,22 +637,22 @@ func seedDemoStore() *demoStore {
 	}
 
 	procedureA := domain.ProcedureRef{
-		ProcedureRefID:   "PROC-1148",
-		Title:            "Hydraulic Line Verification Procedure",
-		ReferenceCode:    "TM-HYD-1148",
-		Revision:         "Rev C",
-		Applicability:    "Applies to platform block 2 with subsystem HYD-A.",
-		AccessState:      domain.AccessStateRestricted,
+		ProcedureRefID:  "PROC-1148",
+		Title:           "Hydraulic Line Verification Procedure",
+		ReferenceCode:   "TM-HYD-1148",
+		Revision:        "Rev C",
+		Applicability:   "Applies to platform block 2 with subsystem HYD-A.",
+		AccessState:     domain.AccessStateRestricted,
 		RestrictedReason: "Full procedure view requires elevated entitlement when substitute-path review is active.",
 	}
 
 	procedureB := domain.ProcedureRef{
-		ProcedureRefID:   "PROC-2207",
-		Title:            "Actuator Inspection Procedure",
-		ReferenceCode:    "TM-ACT-2207",
-		Revision:         "Rev F",
-		Applicability:    "Applies to actuator family ACT-2.",
-		AccessState:      domain.AccessStateConflict,
+		ProcedureRefID:  "PROC-2207",
+		Title:           "Actuator Inspection Procedure",
+		ReferenceCode:   "TM-ACT-2207",
+		Revision:        "Rev F",
+		Applicability:   "Applies to actuator family ACT-2.",
+		AccessState:     domain.AccessStateConflict,
 		RestrictedReason: "Index indicates Rev F while local packet references Rev E.",
 	}
 
