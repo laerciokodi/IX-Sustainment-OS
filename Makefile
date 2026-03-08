@@ -79,7 +79,7 @@ check: lint test api-check schema-check
 docs-check:
 	@echo "Checking required documentation files..."
 	@test -f README.md || (echo "Missing README.md" && exit 1)
-	@test -f LICENSE.md || (echo "Missing LICENSE.md" && exit 1)
+	@test -f LICENSE || (echo "Missing LICENSE" && exit 1)
 	@test -f COMMERCIAL_TERMS.md || (echo "Missing COMMERCIAL_TERMS.md" && exit 1)
 	@echo "Documentation presence checks passed."
 
