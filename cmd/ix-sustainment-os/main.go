@@ -637,22 +637,22 @@ func seedDemoStore() *demoStore {
 	}
 
 	procedureA := domain.ProcedureRef{
-		ProcedureRefID:  "PROC-1148",
-		Title:           "Hydraulic Line Verification Procedure",
-		ReferenceCode:   "TM-HYD-1148",
-		Revision:        "Rev C",
-		Applicability:   "Applies to platform block 2 with subsystem HYD-A.",
-		AccessState:     domain.AccessStateRestricted,
+		ProcedureRefID:   "PROC-1148",
+		Title:            "Hydraulic Line Verification Procedure",
+		ReferenceCode:    "TM-HYD-1148",
+		Revision:         "Rev C",
+		Applicability:    "Applies to platform block 2 with subsystem HYD-A.",
+		AccessState:      domain.AccessStateRestricted,
 		RestrictedReason: "Full procedure view requires elevated entitlement when substitute-path review is active.",
 	}
 
 	procedureB := domain.ProcedureRef{
-		ProcedureRefID:  "PROC-2207",
-		Title:           "Actuator Inspection Procedure",
-		ReferenceCode:   "TM-ACT-2207",
-		Revision:        "Rev F",
-		Applicability:   "Applies to actuator family ACT-2.",
-		AccessState:     domain.AccessStateConflict,
+		ProcedureRefID:   "PROC-2207",
+		Title:            "Actuator Inspection Procedure",
+		ReferenceCode:    "TM-ACT-2207",
+		Revision:         "Rev F",
+		Applicability:    "Applies to actuator family ACT-2.",
+		AccessState:      domain.AccessStateConflict,
 		RestrictedReason: "Index indicates Rev F while local packet references Rev E.",
 	}
 
